@@ -14,6 +14,11 @@ class App extends Component {
     showListings: true
   }
 
+  toggleListingsHandler = () => {
+    const doesShow = this.state.showListings;
+    this.setState({showListings: !doesShow})
+}
+
 
   render () {
 
@@ -37,9 +42,10 @@ class App extends Component {
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
         <Navigation />
         <Home />
+        <button 
+        onClick={this.toggleListingsHandler}>Show Textbook Listings</button>
         {postings}
-
-        />
+        
       </div>
     );
   }
