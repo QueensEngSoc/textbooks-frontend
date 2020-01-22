@@ -4,7 +4,7 @@ import React from 'react';
 const newposting = (props) => {
     return (
         <div className="Textbook">
-            <form>
+            <form onSubmit={props.submitted}>
                 <h4>Please fill the following fields</h4>
                 <p>Enter the name of the textbook</p>
                 <input type='text' name='name' />

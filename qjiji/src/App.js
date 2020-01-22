@@ -27,8 +27,17 @@ toggleAddListingHandler = () => {
 }
 
 submitPostingHandler = (event) => {
-  event.preventDefault();
 
+  event.preventDefault();
+  
+  const newPosting = {
+    courseName: event.target.name.value,
+    email: event.target.email.value,
+    description: event.target.description.value
+  };
+
+  const newPostingList = [...this.state.listings, newPosting];
+  this.setState({listings: newPostingList});
 }
 
 
@@ -54,7 +63,7 @@ submitPostingHandler = (event) => {
     if (this.state.addListing) {
       listingForm = 
         <div>
-          <NewPosting />
+          <NewPosting submitted={event => this.submitPostingHandler(event)} />
         </div>
     }
 
