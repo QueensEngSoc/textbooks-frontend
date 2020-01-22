@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Navigation from './Navigation';
 import Home from './Home';
 import Textbook from './Textbook/Textbook';
+import NewPosting from './NewPosting/NewPosting';
 
 class App extends Component {
 
@@ -11,13 +12,25 @@ class App extends Component {
       { courseName: 'ELEC274', email: 'tester@tester.com', description: 'sample-text' },
       { courseName: 'MTHE235', email: 'testing@tester.com', description: 'sample-text' }
     ],
-    showListings: true
+    showListings: false,
+    addListing: false
   }
 
-  toggleListingsHandler = () => {
+toggleListingsHandler = () => {
     const doesShow = this.state.showListings;
     this.setState({showListings: !doesShow})
 }
+
+toggleAddListingHandler = () => {
+  const doesShow = this.state.addListing;
+  this.setState({addListing: !doesShow})
+}
+
+submitPostingHandler = (event) => {
+  event.preventDefault();
+
+}
+
 
 
   render () {
@@ -25,7 +38,7 @@ class App extends Component {
     let postings = null;
 
     if (this.state.showListings) {
-      postings = (
+      postings = 
         <div>
           {this.state.listings.map((book) => {
             return <Textbook 
@@ -34,7 +47,15 @@ class App extends Component {
              description={book.description} />
           })}
         </div>
-      );
+    }
+
+    let listingForm = null;
+
+    if (this.state.addListing) {
+      listingForm = 
+        <div>
+          <NewPosting />
+        </div>
     }
 
     return (
@@ -42,8 +63,13 @@ class App extends Component {
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
         <Navigation />
         <Home />
-        <button 
-        onClick={this.toggleListingsHandler}>Show Textbook Listings</button>
+        <div style={{textAlign: 'center'}}>
+          <button
+          onClick={this.toggleListingsHandler}>Show Textbook Listings</button>
+          <button
+          onClick={this.toggleAddListingHandler}>Add Textbook Listings</button>
+        </div>
+        {listingForm}
         {postings}
         
       </div>
