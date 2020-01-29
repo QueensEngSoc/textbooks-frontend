@@ -3,15 +3,12 @@ import Navigation from './Navigation';
 import Home from './Home';
 import Textbook from './Textbook/Textbook';
 import NewPosting from './NewPosting/NewPosting';
+const axios = require('axios');
 
 class App extends Component {
 
   state = {
-    listings: [
-      { courseName: 'APSC112', email: 'test@tester.com', description: 'sample-text' },
-      { courseName: 'ELEC274', email: 'tester@tester.com', description: 'sample-text' },
-      { courseName: 'MTHE235', email: 'testing@tester.com', description: 'sample-text' }
-    ],
+    listings: [],
     showListings: false,
     addListing: false
   }
@@ -40,22 +37,42 @@ submitPostingHandler = (event) => {
   this.setState({listings: newPostingList});
 }
 
-
+fetchBooks = () => {
+  let self = this;
+  axios({
+    method: 'get',
+    url: '/posts'
+  })
+  .then(function (response) {
+    console.log(response);
+    self.setState({listings: response.data});
+  });
+}
 
   render () {
 
     let postings = null;
 
     if (this.state.showListings) {
-      postings = 
+      console.log("print");
+      this.fetchBooks();
+      let listings = this.state.listings;
+      if (listings.length) {
+        postings = 
         <div>
-          {this.state.listings.map((book) => {
-            return <Textbook 
-             courseName={book.courseName}
-             email={book.email}
-             description={book.description} />
-          })}
+          {
+            listings.map((book) => {
+              return <Textbook 
+              courseName={book.book_course}
+              email={book.contact_email}
+              description={book.book_description} />
+            })
+          }
         </div>
+      } else {
+        postings = <span>Loading textbooks...</span>
+      }
+      console.log(postings);
     }
 
     let listingForm = null;
