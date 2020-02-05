@@ -16,11 +16,13 @@ class App extends Component {
   toggleListingsHandler = () => {
     const doesShow = this.state.showListings;
     this.setState({showListings: !doesShow})
+    this.setState({addListing: doesShow})
   }
 
   toggleAddListingHandler = () => {
     const doesShow = this.state.addListing;
     this.setState({addListing: !doesShow})
+    this.setState({showListings: doesShow})
   }
 
   submitPostingHandler = (event) => {
@@ -51,10 +53,9 @@ class App extends Component {
     });
     console.log(this.state.listings);
 
-    const newPostingList = [...this.state.listings, newPosting];
-    this.setState({listings: newPostingList});
+    // const newPostingList = [...this.state.listings, newPosting];
+    // this.setState({listings: newPostingList});
   }
-  // this.setState({listings: newPostingList});
 
   fetchBooks = () => {
     let self = this;
