@@ -13,41 +13,47 @@ class App extends Component {
     addListing: false
   }
 
-toggleListingsHandler = () => {
+  toggleListingsHandler = () => {
     const doesShow = this.state.showListings;
     this.setState({showListings: !doesShow})
-}
+  }
 
-toggleAddListingHandler = () => {
-  const doesShow = this.state.addListing;
-  this.setState({addListing: !doesShow})
-}
+  toggleAddListingHandler = () => {
+    const doesShow = this.state.addListing;
+    this.setState({addListing: !doesShow})
+  }
 
-submitPostingHandler = (event) => {
+  submitPostingHandler = (event) => {
 
-  event.preventDefault();
-  
-  const newPosting = {
-    courseName: event.target.name.value,
-    email: event.target.email.value,
-    description: event.target.description.value
-  };
+    event.preventDefault();
+    
+    const newPosting = {
+      book_name: event.target.name.value,
+      book_course: 'ABC101',
+      book_description: event.target.description.value,
+      book_condition: "New",
+      book_price: 150,
+      book_status: "available",
+      contact_name: "John",
+      contact_number: "6471112222",
+      contact_email: event.target.email.value
+    };
 
-  const newPostingList = [...this.state.listings, newPosting];
-  this.setState({listings: newPostingList});
-}
+    const newPostingList = [...this.state.listings, newPosting];
+    this.setState({listings: newPostingList});
+  }
 
-fetchBooks = () => {
-  let self = this;
-  axios({
-    method: 'get',
-    url: '/posts'
-  })
-  .then(function (response) {
-    console.log(response);
-    self.setState({listings: response.data});
-  });
-}
+  fetchBooks = () => {
+    let self = this;
+    axios({
+      method: 'get',
+      url: '/posts'
+    })
+    .then(function (response) {
+      console.log(response);
+      self.setState({listings: response.data});
+    });
+  }
 
   render () {
 
