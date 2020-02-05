@@ -31,10 +31,25 @@ submitPostingHandler = (event) => {
     courseName: event.target.name.value,
     email: event.target.email.value,
     description: event.target.description.value
+    
   };
 
   const newPostingList = [...this.state.listings, newPosting];
-  this.setState({listings: newPostingList});
+
+  let self = this;
+  axios({
+    method: 'post',
+    url: '/posts',
+    data: newPosting
+  })
+  .then(function (response) {
+    console.log(response);
+    self.setState({listings: response.data});
+  });
+
+  console.log(this.state.listings);
+
+  // this.setState({listings: newPostingList});
 }
 
 fetchBooks = () => {
@@ -52,10 +67,9 @@ fetchBooks = () => {
   render () {
 
     let postings = null;
-
+    this.fetchBooks();
     if (this.state.showListings) {
       console.log("print");
-      this.fetchBooks();
       let listings = this.state.listings;
       if (listings.length) {
         postings = 
