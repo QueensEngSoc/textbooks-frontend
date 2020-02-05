@@ -39,9 +39,22 @@ class App extends Component {
       contact_email: event.target.email.value
     };
 
+    let self = this;
+    axios({
+      method: 'post',
+      url: '/posts',
+      data: newPosting
+    })
+    .then(function (response) {
+      console.log(response);
+      self.setState({listings: response.data});
+    });
+    console.log(this.state.listings);
+
     const newPostingList = [...this.state.listings, newPosting];
     this.setState({listings: newPostingList});
   }
+  // this.setState({listings: newPostingList});
 
   fetchBooks = () => {
     let self = this;
@@ -58,10 +71,9 @@ class App extends Component {
   render () {
 
     let postings = null;
-
+    this.fetchBooks();
     if (this.state.showListings) {
       console.log("print");
-      this.fetchBooks();
       let listings = this.state.listings;
       if (listings.length) {
         postings = 
@@ -69,7 +81,7 @@ class App extends Component {
           {
             listings.map((book) => {
               return <Textbook 
-              courseName={book.book_course}
+              courseName={book.book_name}
               email={book.contact_email}
               description={book.book_description} />
             })
