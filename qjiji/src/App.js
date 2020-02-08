@@ -53,8 +53,9 @@ class App extends Component {
     });
     console.log(this.state.listings);
 
-    // const newPostingList = [...this.state.listings, newPosting];
-    // this.setState({listings: newPostingList});
+    event.target.name.value = "";
+    event.target.description.value = "";
+    event.target.email.value = "";
   }
 
   fetchBooks = () => {
@@ -72,9 +73,10 @@ class App extends Component {
   render () {
 
     let postings = null;
+
     this.fetchBooks();
+
     if (this.state.showListings) {
-      console.log("print");
       let listings = this.state.listings;
       if (listings.length) {
         postings = 
