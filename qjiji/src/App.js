@@ -30,15 +30,15 @@ class App extends Component {
     event.preventDefault();
     
     const newPosting = {
-      book_name: event.target.name.value,
-      book_course: 'ABC101',
+      book_name: event.target.book_name.value,
+      book_course: event.target.book_course.value,
       book_description: event.target.description.value,
-      book_condition: "New",
-      book_price: 150,
+      book_condition: event.target.book_condition.value,
+      book_price: event.target.book_price.value,
       book_status: "available",
-      contact_name: "John",
-      contact_number: "6471112222",
-      contact_email: event.target.email.value
+      contact_name: event.target.contact_name.value,
+      contact_number: event.target.contact_number.value,
+      contact_email: event.target.contact_email.value
     };
 
     let self = this;
@@ -48,14 +48,21 @@ class App extends Component {
       data: newPosting
     })
     .then(function (response) {
-      console.log(response);
       self.setState({listings: response.data});
     });
-    console.log(this.state.listings);
-
-    event.target.name.value = "";
+    
+    // Clear input fields
+    event.target.book_name.value = "";
+    event.target.book_course.value = "";
     event.target.description.value = "";
-    event.target.email.value = "";
+    event.target.book_condition.value = "";
+    event.target.book_price.value = "";
+    event.target.contact_name.value = "";
+    event.target.contact_number.value = "";
+    event.target.contact_email.value = "";
+
+    alert("Your posting was added successfully!");
+
   }
 
   fetchBooks = () => {
@@ -65,7 +72,6 @@ class App extends Component {
       url: '/posts'
     })
     .then(function (response) {
-      console.log(response);
       self.setState({listings: response.data});
     });
   }
@@ -84,8 +90,13 @@ class App extends Component {
           {
             listings.map((book) => {
               return <Textbook 
-              courseName={book.book_name}
+              bookName={book.book_name}
+              courseName={book.book_course}
+              price={book.book_price}
+              bookCondition={book.book_condition}
+              contactName={book.contact_name}
               email={book.contact_email}
+              phoneNumber={book.contact_number}
               description={book.book_description} />
             })
           }
@@ -93,7 +104,6 @@ class App extends Component {
       } else {
         postings = <span>Loading textbooks...</span>
       }
-      console.log(postings);
     }
 
     let listingForm = null;
