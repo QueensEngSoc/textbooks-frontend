@@ -20,9 +20,9 @@ class App extends Component {
     this.setState({showListings: !doesShow});
 
     if (!this.state.showListings) {
-      this.state.showListingsButton = "Hide Textbook Listings";
+      this.setState({showListingsButton: "Hide Textbook Listings"});
     } else {
-      this.state.showListingsButton = "Show Textbook Listings";
+      this.setState({showListingsButton: "Show Textbook Listings"});
     }
   }
 
@@ -31,9 +31,9 @@ class App extends Component {
     this.setState({addListing: !doesShow});
 
     if (!this.state.addListing) {
-      this.state.addListingsButton = "Hide Add Listing";
+      this.setState({addListingsButton: "Hide Add Listing"});
     } else {
-      this.state.addListingsButton = "Add Textbook Listing";
+      this.setState({addListingsButton: "Add Textbook Listing"});
     }
   }
 
