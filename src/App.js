@@ -10,19 +10,31 @@ class App extends Component {
   state = {
     listings: [],
     showListings: false,
-    addListing: false
-  }
+    addListing: false,
+    showListingsButton: "Show Textbook Listings",
+    addListingsButton: "Add Textbook Listing"
+  };
 
   toggleListingsHandler = () => {
     const doesShow = this.state.showListings;
-    this.setState({showListings: !doesShow})
-    this.setState({addListing: doesShow})
+    this.setState({showListings: !doesShow});
+
+    if (!this.state.showListings) {
+      this.setState({showListingsButton: "Hide Textbook Listings"});
+    } else {
+      this.setState({showListingsButton: "Show Textbook Listings"});
+    }
   }
 
   toggleAddListingHandler = () => {
     const doesShow = this.state.addListing;
-    this.setState({addListing: !doesShow})
-    this.setState({showListings: doesShow})
+    this.setState({addListing: !doesShow});
+
+    if (!this.state.addListing) {
+      this.setState({addListingsButton: "Hide Add Listing"});
+    } else {
+      this.setState({addListingsButton: "Add Textbook Listing"});
+    }
   }
 
   submitPostingHandler = (event) => {
@@ -122,9 +134,9 @@ class App extends Component {
         <Home />
         <div style={{textAlign: 'center'}}>
           <button
-          onClick={this.toggleListingsHandler}>Show Textbook Listings</button>
+          onClick={this.toggleListingsHandler}>{this.state.showListingsButton}</button>
           <button
-          onClick={this.toggleAddListingHandler}>Add Textbook Listings</button>
+          onClick={this.toggleAddListingHandler}>{this.state.addListingsButton}</button>
         </div>
         {listingForm}
         {postings}
