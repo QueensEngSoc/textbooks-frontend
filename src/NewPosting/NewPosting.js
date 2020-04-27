@@ -43,10 +43,10 @@ const newposting = (props) => {
                 <br/>
 
                 <p>Additional information</p>
-                <input type='text' name='description' />
+                <input type='text' name='description' required />
                 <br/>
                 <br/>
-                <input type='submit' value='Submit Posting' required />
+                <input type='submit' value='Submit Posting' />
             </form>
         </div>
     )
